@@ -1,7 +1,7 @@
 function  az = azimuth(ENU)
 % ENU의 위치를 이용하여 Azimuth 계산%
 % ENU성분은 [km]단위%
-ENUsize = size(ENU)
+ENUsize = size(ENU);
 for i=1:ENUsize(1)
     r_E(i) = ENU(i,1); 
     r_N(i) = ENU(i,2); 
