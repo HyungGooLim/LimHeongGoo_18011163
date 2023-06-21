@@ -10,9 +10,9 @@ omega = rad2deg(nav.GPS.omega); %Argument of perigee
 M0 = nav.GPS.M0; % Mean anomaly at toc
 toc = nav.GPS.toc; %Epoch
 OMEGA = rad2deg(nav.GPS.OMEGA); %Right ascension of ascending node
-%% geoplot append matrix 
+%% geoplot append matrix
 lat_geoplot = [];
-lon_geoplot = []; 
+lon_geoplot = [];
 %% skyplot append matrix
 az_skyplot = [];
 el_skyplot = [];
@@ -25,6 +25,8 @@ el_mask = 10; %[deg]
 t1 = datetime(toc);
 t2 = datetime(2023,04,30,0,0,0);
 ttime = linspace(t1,t2,24*60);
+%% ECI save matrix
+ECI_ = [];
 %% Orbit
 for j=1:length(ttime)
     %% M0 2 M
@@ -38,6 +40,7 @@ for j=1:length(ttime)
     %% Perifocal 2 ECI frame
     DCM_P2I=PQW2ECI(omega,i,OMEGA);
     rangeInECI=(DCM_P2I)*rangeInPQW;
+    ECI_ = [ECI_,rangeInECI];
     %% ECI 2 ECEF frame
     DCM = ECI2ECEF_DCM(ttime(j));
     rangeInECEF=DCM*rangeInECI;
